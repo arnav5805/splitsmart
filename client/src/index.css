@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   THEME TOKENS
+   Light is the default (:root); .dark overrides. Each token is an RGB triplet
+   so Tailwind utilities like bg-card, text-fg, border-line/10 all work and the
+   /opacity modifier still applies. Toggling the `dark` class on <html> flips
+   the whole UI — no per-component theme logic needed.
+--------------------------------------------------------------------------- */
+:root {
+  --app: 244 246 249;     /* page background       */
+  --card: 255 255 255;    /* surfaces / panels     */
+  --inset: 247 249 252;   /* nested rows / chips    */
+  --line: 15 23 42;       /* borders (used at ~10%) */
+  --fg: 15 23 42;         /* primary text          */
+  --muted: 71 85 105;     /* secondary text        */
+  --faint: 148 163 184;   /* tertiary text         */
+  --pos: 4 122 89;        /* positive money        */
+  --neg: 225 29 72;       /* negative money        */
+}
+.dark {
+  --app: 6 9 13;
+  --card: 17 24 33;
+  --inset: 26 36 47;
+  --line: 255 255 255;
+  --fg: 237 242 247;
+  --muted: 148 163 184;
+  --faint: 100 116 139;
+  --pos: 94 238 189;
+  --neg: 251 113 133;
+}
+
+@layer base {
+  body {
+    @apply bg-app text-fg antialiased;
+    font-feature-settings: "ss01";
+    background-image:
+      radial-gradient(60rem 60rem at 85% -10%, rgba(6,189,132,.10), transparent 60%),
+      radial-gradient(50rem 50rem at -10% 10%, rgba(56,120,255,.06), transparent 55%);
+    background-attachment: fixed;
+    transition: background-color .3s ease, color .3s ease;
+  }
+  .dark body {
+    background-image:
+      radial-gradient(60rem 60rem at 85% -10%, rgba(6,189,132,.16), transparent 60%),
+      radial-gradient(50rem 50rem at -10% 10%, rgba(56,120,255,.10), transparent 55%),
+      radial-gradient(40rem 40rem at 50% 120%, rgba(34,217,158,.08), transparent 60%);
+  }
+  h1, h2, h3 { @apply font-display; }
+  input[type="date"]::-webkit-calendar-picker-indicator { filter: var(--cal-invert, none); }
+  .dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.85); }
+  /* tabular, monospace figures so money columns line up like a ledger */
+  .nums { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  /* ---- surfaces ---- */
+  .card { @apply rounded-2xl border border-line/10 bg-card shadow-soft; }
+  .dark .card { @apply bg-card/70 backdrop-blur-xl; }
+  .card-hover { @apply transition duration-200 hover:-translate-y-0.5 hover:border-brand-400/50 hover:shadow-glow; }
+
+  /* ---- buttons ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+           transition duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-app
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn text-ink-950 focus:ring-brand-400;
+    background-image: linear-gradient(180deg, #2ee3a6, #06bd84);
+    box-shadow: 0 8px 24px -8px rgba(6,189,132,.6), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-ghost  { @apply btn border border-line/15 bg-line/[0.04] text-fg hover:bg-line/[0.09]; }
+  .btn-danger { @apply btn border border-rose-500/30 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20; }
+
+  /* ---- forms ---- */
+  .input {
+    @apply w-full rounded-xl border border-line/15 bg-inset px-3.5 py-2.5 text-sm text-fg
+           placeholder:text-faint outline-none transition
+           focus:border-brand-400/60 focus:ring-2 focus:ring-brand-500/30;
+  }
+  select.input option { @apply bg-card text-fg; }
+  .label { @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-faint; }
+
+  /* ---- bits ---- */
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .grad-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #06bd84, #22d99e 60%, #1f9bff);
+  }
+  .divide-hair > * + * { @apply border-t border-line/[0.08]; }
+}
