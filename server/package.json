@@ -1,0 +1,19 @@
+{
+  "name": "shared-expenses-server",
+  "version": "1.0.0",
+  "description": "Backend API for the Shared Expenses app (Spreetail assignment)",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.5.6",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
