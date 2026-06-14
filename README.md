@@ -9,8 +9,8 @@ anomaly before anything is saved.**
 
 Built for the Spreetail "Build a Shared Expenses App" assignment.
 
-> **Live URL:** _add your deployed URL here after following the Deploy section_
-> **Repo:** _add your GitHub URL here_
+> **Live app:** https://splitsmart-y4ka.onrender.com
+> **Repo:** https://github.com/arnav5805/splitsmart
 
 ---
 
