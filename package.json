@@ -11,6 +11,6 @@
     "dev:client": "cd client && npm run dev"
   },
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   }
 }
